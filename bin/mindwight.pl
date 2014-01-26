@@ -33,6 +33,7 @@ my $argpassword = ''; #-p or --password
 my $arglist = '';
 my $argget = '';
 my $argsearch = '';
+my $argremove = '';
 
 GetOptions('help' => \$arghelp,
 	   'add' => \$argadd,
@@ -41,7 +42,8 @@ GetOptions('help' => \$arghelp,
 	   'password:s' => \$argpassword,
 	   'list' => \$arglist,
 	   'get' => \$argget,
-	   'search:s' => \$argsearch
+	   'search:s' => \$argsearch,
+	   'remove:s' => \$argremove
 );
 
 if($arghelp eq 1 or @auxarg==0){ #--help
@@ -64,5 +66,9 @@ elsif($argget eq 1){
 }
 elsif($argsearch ne ''){
 	mindSearch($argsearch);
+	exit;
+}
+elsif($argremove ne ''){
+	mindRemove($argremove);
 	exit;
 }

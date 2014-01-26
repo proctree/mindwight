@@ -72,4 +72,21 @@ sub mindList{
 	}
 }
 
+sub mindRemove{
+	die "Not enough arguments, stopped" unless @_>0;
+        die "Too many arguments, stopped", unless @_<2;
+	loadMind();
+	my ($rterm)=@_;
+	open my $mfi,">",(cwd().'/db.mwc');
+	for(my $i=0;$i<@mina;$i++){
+		if((lc $mina[$i]) ne (lc $rterm)){
+			print $mfi "$mina[$i]\n$mint{$mina[$i]}\n";
+		}
+		else{
+			print "Removed $rterm.\n";
+		}
+	}
+	close $mfi;
+}
+
 1;
