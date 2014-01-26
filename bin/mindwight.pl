@@ -30,19 +30,26 @@ my $argadd = ''; #-a or --add
 my $argname = ''; #-n or --name
 my $argkey = ''; #-k or --key
 my $argpassword = ''; #-p or --password
+my $arglist = '';
 
 GetOptions('help' => \$arghelp,
 	   'add' => \$argadd,
 	   'name:s' => \$argname,
 	   'key:s' => \$argkey,
-	   'password:s' => \$argpassword
+	   'password:s' => \$argpassword,
+	   'list' => \$arglist
 );
 
 if($arghelp eq 1 or @auxarg==0){ #--help
 	usage();
 	exit;
 }
-if($argadd eq 1){ #--add
+elsif($argadd eq 1){ #--add
 	die "Not enough arguments for mode --add, stopped" unless $argname ne '' and $argkey ne '' and $argpassword ne ''; #check that all of the arguments are specified
 	mindAdd($argname,$argkey,$argpassword); #mindAdd is in Mind::Wight::Crypt
+	exit;
+}
+elsif($arglist eq 1){
+	mindList();
+	exit;
 }

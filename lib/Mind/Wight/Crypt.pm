@@ -11,6 +11,9 @@ use Exporter qw(import);
 
 our @EXPORT_OK = qw(mindAdd);
 
+my @mina=();
+my %mint=();
+
 sub mindAdd{
 	die "Not enough arguments, stopped" unless @_>2;
 	die "Too many arguments, stopped" unless @_<4;
@@ -21,6 +24,31 @@ sub mindAdd{
 	open my $mfo,">>",(cwd().'/db.mwc');
 	print $mfo "$name\n".encrypt($pass,$key)."\n";
 	close $mfo;
+}
+
+sub loadMind{
+	if(-e(cwd().'/db.mwc')){
+		open my $mfi,"<",(cwd().'/db.mwc');
+		while(<$mfi>){
+			chomp;
+			my $hname=$_;
+			my $hhash=<$mfi>;
+			chomp $hhash;
+			$mint{$hname}=$hhash;
+			push @mina,$hname;
+		}
+		close $mfi;
+	}
+	else{
+		system('touch '.cwd().'/db.mwc');
+	}
+}
+
+sub mindList{
+	loadMind();
+	for(my $i=0;$i<@mina;$i++){
+		print "$mina[$i]\n";
+	}
 }
 
 1;
