@@ -50,7 +50,7 @@ sub mindGet{
 	loadMind();
 	my ($name,$key) = @_;
 	my $rpass = decrypt($mint{$name},$key) or die "Name not found, stopped";
-	print "$rpass\n";
+	print "Password: $rpass\n";
 }
 
 sub mindSearch{
