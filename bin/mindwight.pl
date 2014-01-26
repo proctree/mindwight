@@ -31,13 +31,15 @@ my $argname = ''; #-n or --name
 my $argkey = ''; #-k or --key
 my $argpassword = ''; #-p or --password
 my $arglist = '';
+my $argget = '';
 
 GetOptions('help' => \$arghelp,
 	   'add' => \$argadd,
 	   'name:s' => \$argname,
 	   'key:s' => \$argkey,
 	   'password:s' => \$argpassword,
-	   'list' => \$arglist
+	   'list' => \$arglist,
+	   'get' => \$argget
 );
 
 if($arghelp eq 1 or @auxarg==0){ #--help
@@ -51,5 +53,10 @@ elsif($argadd eq 1){ #--add
 }
 elsif($arglist eq 1){
 	mindList();
+	exit;
+}
+elsif($argget eq 1){
+	die "Not enough arguments for mode --get, stopped" unless $argname ne '' and $argkey ne '';
+	mindGet($argname,$argkey);
 	exit;
 }
