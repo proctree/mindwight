@@ -46,11 +46,23 @@ sub loadMind{
 
 sub mindGet{
 	die "Not enough arguments, stopped" unless @_>1;
-	die "Not enough arguments, stopped" unless @_<3;
+	die "Too many arguments, stopped" unless @_<3;
 	loadMind();
 	my ($name,$key) = @_;
 	my $rpass = decrypt($mint{$name},$key) or die "Name not found, stopped";
 	print "$rpass\n";
+}
+
+sub mindSearch{
+	die "Not enough arguments, stopped" unless @_>0;
+	die "Too many arguments, stopped", unless @_<2;
+	loadMind();
+	my ($sterm)=@_;
+	for(my $i=0;$i<@mina;$i++){
+		if($mina[$i]=~m/\Q$sterm/){
+			print "$mina[$i]\n";
+		}
+	}
 }
 
 sub mindList{
